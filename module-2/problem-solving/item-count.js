@@ -25,10 +25,9 @@ const surveyResponses = [
 
 
 const counted = surveyResponses.reduce((count, response) => {
-    
     count[response] = count[response]+1
     return count;
-
+    
 }, surveyResponses.reduce((c,items) => { 
     c[items] = 0;
     return c;
