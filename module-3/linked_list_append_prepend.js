@@ -29,6 +29,8 @@ class LinkedList {
         }
 
         this.length++;
+
+        return this;
     }
 
     prepend(value){
@@ -43,8 +45,46 @@ class LinkedList {
         }
 
         this.length++;
+
+        return this;
     }
 
+    insert(index,value){
+        if(index<0 || index > this.length){
+            console.error("Out of bound indexing");
+            return undefined;
+        }
+
+        else if(index === 0){
+            this.prepend(value);
+        }
+        else if(index === this.length){
+            this.append(value);
+        }
+
+        else{
+            // we to find the leading node 
+            const newNode = new Node(value);
+            const leadingNode = this._leadingNode(index-1);
+            // console.log(leadingNode);
+
+            const holdingNode = leadingNode.next;
+            leadingNode.next = newNode;
+            newNode.next = holdingNode;
+            this.length ++;
+                        
+        }
+    }
+    // private helper funtion/method
+    _leadingNode(index){
+        let i = 0;
+        let leadingNode = this.head;
+        while(i !== index){
+            leadingNode = leadingNode.next;
+            i++;
+        }
+        return leadingNode;
+    }
     print(){
         let temp = this.head;
         while(temp!==null){
@@ -56,11 +96,8 @@ class LinkedList {
 }
 
 const linkedList = new LinkedList();
-linkedList.append(1)
-linkedList.append(2)
-linkedList.append(3)
+linkedList.append(1).append(2).append(4);
 
-linkedList.print()
-linkedList.prepend(0)
-linkedList.prepend(-1)
-linkedList.print()
+linkedList.insert(2, 40);
+
+linkedList.print();
